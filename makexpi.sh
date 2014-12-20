@@ -65,6 +65,12 @@ case $(uname) in
   *)                   cp="cp" ;;
 esac
 
+if [ -f /usr/bin/shasum ]; then
+    shasum = "shasum -a 1"
+else
+    shasum = "sha1sum"
+fi
+
 use_version=0
 nojar=0
 xpi_compression_level=9
@@ -281,6 +287,6 @@ cd ..
 rm -r -f xpi_temp
 
 # create hash
-sha1sum -b ${appname}*.xpi > sha1hash.txt
+$shasum -b ${appname}*.xpi > sha1hash.txt
 
 exit 0;
